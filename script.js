@@ -54,9 +54,30 @@ function showPage(pageId) {
     updateAdminSection();
     lucide.createIcons();
   };
+document.getElementById("file-form").onsubmit = function(event) {
+    event.preventDefault();  // Prevent the default form submission
+
+    const formData = new FormData();
+    const fileInput = document.getElementById("file");
+
+    formData.append("file", fileInput.files[0]);
+
+    fetch("https://your-replit-username.replit.app/upload", {
+      method: "POST",
+      body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+      alert("File uploaded successfully!");
+    })
+    .catch(error => {
+      alert("Error uploading file.");
+    });
+  };
   document.getElementById('mod-file').addEventListener('change', (e) => {
     const name = e.target.files[0]?.name || "No file selected";
     document.querySelector('.file-upload span').innerHTML = `<i data-lucide="file"></i> ${name}`;
     lucide.createIcons();
   });
+
   
